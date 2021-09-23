@@ -1,0 +1,36 @@
+# code to take in a 2d Array and produce an image out of it
+from PIL import Image, ImageDraw
+import random
+
+"""
+Array format: 
+[
+[(R,G,B), (R,G,B), (R,G,B), ...],
+[(R,G,B), (R,G,B), (R,G,B), ...],
+[(R,G,B), (R,G,B), (R,G,B), ...],
+...
+[(R,G,B), (R,G,B), (R,G,B), ...]
+]
+"""
+
+
+def array_to_image(arr, bg, name, save = False):
+    img = Image.new("RGB", (len(arr), len(arr[0])), bg)
+    for y, row in enumerate(arr):
+        for x, pixel in enumerate(row):
+            img.putpixel((x, y), pixel)
+
+    img.save(f"images/{name}.png")
+
+
+if __name__ == "__main__":
+    side = 1000
+    array = [
+        [
+            (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+            for j in range(side)
+        ]
+        for i in range(side)
+    ]
+
+    array_to_image(array, (0,0,0), "random")
